@@ -1,0 +1,2953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sagar Tourism Guide | सागर पर्यटन गाइड</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #ffffff;
+    overflow-x: hidden;
+    padding-top: 70px;
+    background: #0a0a0a;
+}
+
+:root {
+    --navbar-height: 70px;
+    --bg: #0a0a0a;
+    --card-bg: rgba(255,255,255,0.05);
+    --text: #ffffff;
+    --muted: #cccccc;
+    --accent1: #667eea;
+    --accent2: #764ba2;
+}
+
+:root.light {
+    --bg: #ffffff;
+    --card-bg: rgba(0,0,0,0.04);
+    --text: #111827;
+    --muted: #4b5563;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10001;
+}
+
+.theme-toggle button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Language Toggle */
+.language-toggle {
+    display: flex;
+    gap: 5px;
+    margin-right: 20px;
+}
+
+.lang-btn {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Navigation */
+.navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100%;
+    height: var(--navbar-height);
+    background: rgba(10, 10, 14, 0.6);
+    backdrop-filter: blur(10px);
+    z-index: 2147483647 !important;
+    padding: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+}
+
+.navbar.scrolled {
+    background: rgba(10, 10, 14, 0.95);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.75);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-logo h2 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.8rem;
+    font-weight: 700;
+    animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+    0% { filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.3)); }
+    100% { filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.6)); }
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background: var(--text);
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    animation: heroPattern 20s ease-in-out infinite;
+}
+
+@keyframes heroPattern {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-50px) translateY(-50px); }
+}
+
+.hero-content {
+    padding: 2rem;
+    text-align: center;
+    z-index: 2;
+    animation: slideInLeft 1s ease-out;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    margin: 2rem;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff 0%, #a8edea 50%, #fed6e3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px rgba(168, 237, 234, 0.5);
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    100% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.6); }
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    animation: fadeInUp 1s ease-out 0.6s both;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Carousel */
+.hero-carousel {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    animation: slideInRight 1s ease-out 0.3s both;
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-track {
+    display: flex;
+    width: 500%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-slide {
+    width: 20%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: white;
+    padding: 2rem;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-slide:hover .slide-overlay {
+    transform: translateY(0);
+}
+
+.slide-overlay h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.slide-overlay p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dot.active {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+}
+
+.carousel-prev {
+    left: 20px;
+}
+
+.carousel-next {
+    right: 20px;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Section Styles */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #ffffff 0%, #a8edea 50%, #fed6e3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    animation: titleFloat 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(168, 237, 234, 0.3);
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+section[id] {
+    scroll-margin-top: calc(var(--navbar-height) + 16px);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+    animation: lineExpand 2s ease-in-out infinite;
+}
+
+@keyframes lineExpand {
+    0%, 100% { width: 80px; }
+    50% { width: 120px; }
+}
+
+/* Places Section */
+.places-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+}
+
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.place-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    animation: cardFloat 6s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.place-card:nth-child(even) {
+    animation-delay: -3s;
+}
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.place-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.place-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.place-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.place-card:hover .place-image img {
+    transform: scale(1.1);
+}
+
+.place-content {
+    padding: 1.5rem;
+}
+
+.place-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.place-content p {
+    color: #cccccc;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.place-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.place-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #aaaaaa;
+    font-size: 0.9rem;
+}
+
+.place-info i {
+    color: #667eea;
+}
+
+/* Footer */
+.footer {
+    background: #1a1a1a;
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 1rem;
+    color: #ffd700;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ffd700;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: #ffd700;
+    color: #1a1a1a;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    color: #aaaaaa;
+}
+
+/* Culture Section */
+.culture-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.culture-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(255, 102, 102, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 153, 51, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.culture-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.culture-text h3 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.culture-text p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #cccccc;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.culture-features {
+    list-style: none;
+}
+
+.culture-features li {
+    padding: 15px 0;
+    font-size: 1.1rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.culture-features i {
+    color: #ff6b6b;
+    font-size: 1.3rem;
+}
+
+.culture-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.culture-image img:hover {
+    transform: scale(1.05);
+}
+
+/* Food Section */
+.food-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #4a2c1a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.food-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.food-category {
+    margin-bottom: 60px;
+}
+
+.food-category h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.food-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.food-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.food-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.food-card p {
+    color: #cccccc;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.food-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.food-details span {
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.food-details i {
+    color: #ffd700;
+}
+
+/* Rating Section */
+.rating-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.rating-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 25% 75%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.rating-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.rating-stats h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.overall-rating {
+    text-align: center;
+}
+
+.rating-circle {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.rating-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.rating-stars {
+    margin-top: 10px;
+}
+
+.rating-stars i {
+    color: #ffd700;
+    font-size: 1.2rem;
+    margin: 0 2px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.overall-rating p {
+    color: #cccccc;
+    font-size: 1.1rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.feedback-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.rating-input {
+    margin-bottom: 25px;
+}
+
+.rating-input label {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.star-rating {
+    display: flex;
+    gap: 5px;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating .star {
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.star-rating .star:hover,
+.star-rating input:checked ~ .star {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-size: 1rem;
+    resize: vertical;
+    backdrop-filter: blur(5px);
+}
+
+.form-group textarea::placeholder {
+    color: #cccccc;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.checkbox-label:hover {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #ffd700;
+    cursor: pointer;
+}
+
+.recommendation {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #ffd700;
+    cursor: pointer;
+}
+
+/* Recent Reviews */
+.recent-reviews {
+    margin-top: 60px;
+}
+
+.recent-reviews h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2rem;
+    text-shadow: none;
+}
+
+.reviewer-details h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.review-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.review-rating i {
+    color: #ffd700;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.review-date {
+    color: #cccccc;
+    font-size: 0.8rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.review-card p {
+    color: #cccccc;
+    line-height: 1.6;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    font-style: italic;
+}
+
+/* Hill View Section */
+.hill-view-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1a2e1a 0%, #2d4a2d 50%, #3d5a3d 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hill-view-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(139, 195, 74, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.hill-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.hill-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hill-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.hill-card:hover .hill-image img {
+    transform: scale(1.05);
+}
+
+.hill-content {
+    padding: 25px;
+}
+
+.hill-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.hill-content p {
+    color: #cccccc;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.hill-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hill-info span {
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.hill-info i {
+    color: #4caf50;
+}
+
+.hill-tips {
+    margin-top: 60px;
+}
+
+.hill-tips h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.tip-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tip-card i {
+    font-size: 2.5rem;
+    color: #4caf50;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+}
+
+.tip-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.tip-card p {
+    color: #cccccc;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Map Section */
+.map-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(156, 39, 176, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.map-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.map-placeholder {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    color: #2196f3;
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px rgba(33, 150, 243, 0.5);
+}
+
+.map-placeholder h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.map-placeholder p {
+    color: #cccccc;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.map-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.map-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.map-feature i {
+    font-size: 1.5rem;
+    color: #2196f3;
+    text-shadow: 0 0 15px rgba(33, 150, 243, 0.5);
+}
+
+.map-feature span {
+    color: #ffffff;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Transport Section */
+.transport-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #4a2c1a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.transport-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255, 152, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.transport-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.transport-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.transport-icon {
+    margin-bottom: 20px;
+}
+
+.transport-icon i {
+    font-size: 3rem;
+    color: #ff9800;
+    text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+}
+
+.transport-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.transport-card p {
+    color: #cccccc;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.transport-info {
+    margin-top: 20px;
+}
+
+.transport-info span {
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.transport-info i {
+    color: #ff9800;
+}
+
+.local-transport,
+.essential-services {
+    margin-bottom: 60px;
+}
+
+.local-transport h3,
+.essential-services h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.local-grid,
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.local-card,
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.local-card:hover,
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.local-card i,
+.service-card i {
+    font-size: 2rem;
+    color: #ff9800;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+}
+
+.local-card h4,
+.service-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.local-card p,
+.service-card p {
+    color: #cccccc;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.local-card span,
+.service-card span {
+    color: #ff9800;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: var(--navbar-height);
+        flex-direction: column;
+        background-color: rgba(10,10,14,0.98);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        padding: 2rem 0;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        margin: 1rem 0;
+    }
+
+    .nav-menu .nav-link {
+        color: var(--text);
+        font-size: 1.1rem;
+        padding: 0.8rem 0;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .carousel-container {
+        height: 50vh;
+        margin: 1rem;
+    }
+    
+    .places-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .culture-content,
+    .rating-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rating-circle {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .rating-number {
+        font-size: 2.5rem;
+    }
+    
+    .hill-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .transport-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .local-grid,
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .map-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🏛️ हमारा सागर</h2>
+            </div>
+            <!-- Language Toggle -->
+            <div class="language-toggle">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="hi">हि</button>
+                <button class="lang-btn" data-lang="bk">बुं</button>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#places" class="nav-link">Places</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#culture" class="nav-link">Culture</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#food" class="nav-link">Food</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <br><br><br><br><br><br>
+            <h1>Welcome to Sagar</h1>
+            <p>Welcome to this beautiful city in Madhya Pradesh. The rich culture, historical sites and natural beauty will mesmerize you.</p>
+            <div class="hero-buttons">
+                <a href="#places" class="btn btn-primary">Explore Places</a>
+                <a href="#culture" class="btn btn-secondary">Learn Culture</a>
+            </div>
+        </div>
+        
+        <!-- Image Carousel -->
+        <div class="hero-carousel">
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide active">
+                        <img src="/-ov.png" alt="Sagar City Overview">
+                        <div class="slide-overlay">
+                            <h3>City Overview</h3>
+                            <p>Beautiful panoramic view of Sagar</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/chakraghat-image.png" alt="Chakraghat Lake">
+                        <div class="slide-overlay">
+                            <h3>Chakraghat Lake</h3>
+                            <p>Serene lake with peaceful surroundings</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/gadpahra-fort.png" alt="Historical Fort">
+                        <div class="slide-overlay">
+                            <h3>Historical Fort</h3>
+                            <p>Ancient architecture and rich history</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/vrindavan-vag.png" alt="Ancient Temple">
+                        <div class="slide-overlay">
+                            <h3>Ancient Temple</h3>
+                            <p>Spiritual peace and divine architecture</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/Atal-Park.png" alt="Atal Park">
+                        <div class="slide-overlay">
+                            <h3>Atal Park</h3>
+                            <p>Green spaces for family recreation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Dots -->
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                </div>
+                
+                <!-- Navigation Arrows -->
+                <button class="carousel-prev" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-next" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Places Section -->
+    <section id="places" class="places-section">
+        <div class="container">
+            <h2 class="section-title">Main Tourist Places in Sagar</h2>
+            <div class="places-grid">
+                <!-- Place 1 -->
+                <div class="place-card">
+                    <div class="place-image">
+                        <img src="/chakraghat-image.png" alt="Sagar Lake">
+                    </div>
+                    <div class="place-content">
+                        <h3>Sagar Lake</h3>
+                        <p>The main lake of the city which is full of natural beauty. You can enjoy boating and evening walks here.</p>
+                        <div class="place-info">
+                            <span><i class="fas fa-map-marker-alt"></i> City Center</span>
+                            <span><i class="fas fa-clock"></i> Full Day</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place 2 -->
+                <div class="place-card">
+                    <div class="place-image">
+                        <img src="/gadpahra-fort.png" alt="Historical Fort">
+                    </div>
+                    <div class="place-content">
+                        <h3>Historical Fort</h3>
+                        <p>The famous fort of Sagar which testifies to the history of the city. The entire city can be seen from here.</p>
+                        <div class="place-info">
+                            <span><i class="fas fa-map-marker-alt"></i> Old City</span>
+                            <span><i class="fas fa-clock"></i> 5AM - 7PM</span> 
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place 3 -->
+                <div class="place-card">
+                    <div class="place-image">
+                        <img src="/vrindavan-vag.png" alt="Ancient Temple">
+                    </div>
+                    <div class="place-content">
+                        <h3>Ancient Temple</h3>
+                        <p>The oldest temple of the city which provides spiritual peace. The architecture here is worth seeing.</p>
+                        <div class="place-info">
+                            <span><i class="fas fa-map-marker-alt"></i> Temple Road</span>
+                            <span><i class="fas fa-clock"></i> 5 AM - 10 PM</span> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="culture-section">
+        <div class="container">
+            <h2 class="section-title">Culture of Sagar</h2>
+            <div class="culture-content">
+                <div class="culture-text">
+                    <h3>Rich Cultural Heritage</h3>
+                    <p>Sagar is famous for its rich cultural heritage. The traditions, festivals and art forms here will mesmerize you.</p>
+                    <ul class="culture-features">
+                        <li><i class="fas fa-music"></i> Traditional Music and Dance</li>
+                        <li><i class="fas fa-palette"></i> Local Handicrafts</li>
+                        <li><i class="fas fa-calendar-alt"></i> Colorful Festivals</li>
+                        <li><i class="fas fa-book"></i> Literary Tradition</li>
+                    </ul>
+                </div>
+                <div class="culture-image">
+                    <img src="/cultrul.png" alt="Sagar Culture">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Section -->
+    <section id="food" class="food-section">
+        <div class="container">
+            <h2 class="section-title">Delicious Food of Sagar</h2>
+            
+            <!-- Local Cuisine -->
+            <div class="food-category">
+                <h3>Local Cuisine</h3>
+                <div class="food-grid">
+                    <div class="food-card">
+                        <img src="/posajalebi.png" alt="Poha Jalebi">
+                        <h4>Poha & Jalebi</h4>
+                        <p>Traditional breakfast combo - soft poha with crispy jalebi</p>
+                        <div class="food-details">
+                            <span><i class="fas fa-map-marker-alt"></i> Available everywhere</span>
+                            <span><i class="fas fa-clock"></i> Morning 6-10 AM</span>
+                            <span><i class="fas fa-rupee-sign"></i> ₹30-50</span>
+                        </div>
+                    </div>
+                    <div class="food-card">
+                        <img src="/dal-bati.png" alt="Dal Bati">
+                        <h4>Dal Bati Churma</h4>
+                        <p>Rajasthani specialty - baked wheat balls with dal</p>
+                        <div class="food-details">
+                            <span><i class="fas fa-map-marker-alt"></i> Traditional restaurants</span>
+                            <span><i class="fas fa-clock"></i> Lunch 12-3 PM</span>
+                            <span><i class="fas fa-rupee-sign"></i> ₹150-250</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Street Food -->
+            <div class="food-category">
+                <h3>Street Food</h3>
+                <div class="food-grid">
+                    <div class="food-card">
+                        <img src="/golgappa.png" alt="Golgappa">
+                        <h4>Golgappe</h4>
+                        <p>Crispy hollow puris filled with spicy water and chutney</p>
+                        <div class="food-details">
+                            <span><i class="fas fa-map-marker-alt"></i> Katra Market</span>
+                            <span><i class="fas fa-clock"></i> Evening 4-8 PM</span>
+                            <span><i class="fas fa-rupee-sign"></i> ₹20-30</span>
+                        </div>
+                    </div>
+                    <div class="food-card">
+                        <img src="/golgappa.png" alt="Chaat">
+                        <h4>Chaat & Bhelpuri</h4>
+                        <p>Spicy street snacks with tamarind and mint chutney</p>
+                        <div class="food-details">
+                            <span><i class="fas fa-map-marker-alt"></i> Near Temple Road</span>
+                            <span><i class="fas fa-clock"></i> All day</span>
+                            <span><i class="fas fa-rupee-sign"></i> ₹25-40</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hill View Section -->
+    <section class="hill-view-section">
+        <div class="container">
+            <h2 class="section-title">Hill Views & Nature</h2>
+            <div class="hill-grid">
+                <div class="hill-card">
+                    <div class="hill-image">
+                        <img src="/gauridant.png" alt="Gauridant Hill">
+                    </div>
+                    <div class="hill-content">
+                        <h3>Gauridant Hill</h3>
+                        <p>Famous hill with beautiful sunrise and sunset views. Perfect for nature lovers and photography enthusiasts.</p>
+                        <div class="hill-info">
+                            <span><i class="fas fa-map-marker-alt"></i> 45 km from city</span>
+                            <span><i class="fas fa-clock"></i> Best time: 5-7 AM, 6-8 PM</span>
+                            <span><i class="fas fa-rupee-sign"></i> Entry: Free</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hill-card">
+                    <div class="hill-image">
+                        <img src="/gadhpehrahill.png" alt="Gadhpahra Hill">
+                    </div>
+                    <div class="hill-content">
+                        <h3>Gadhpahra Hill</h3>
+                        <p>Historical hill with ancient ruins and panoramic city views. Great for trekking and historical exploration.</p>
+                        <div class="hill-info">
+                            <span><i class="fas fa-map-marker-alt"></i> 8 km from city</span>
+                            <span><i class="fas fa-clock"></i> Open: 6 AM - 6 PM</span>
+                            <span><i class="fas fa-rupee-sign"></i> Entry: Free</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hill-card">
+                    <div class="hill-image">
+                        <img src="/sunset.png" alt="Sunset Point">
+                    </div>
+                    <div class="hill-content">
+                        <h3>Sunset Point</h3>
+                        <p>Perfect spot to watch the sunset over the city. Near Chakraghat, offers breathtaking evening views.</p>
+                        <div class="hill-info">
+                            <span><i class="fas fa-map-marker-alt"></i> Near Chakraghat</span>
+                            <span><i class="fas fa-clock"></i> Best time: 6-7 PM</span>
+                            <span><i class="fas fa-rupee-sign"></i> Entry: Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hill View Tips -->
+            <div class="hill-tips">
+                <h3>Hill View Tips</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-camera"></i>
+                        <h4>Photography</h4>
+                        <p>Best lighting conditions are during sunrise and sunset for stunning photos.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-hiking"></i>
+                        <h4>Trekking</h4>
+                        <p>Wear comfortable shoes and carry water bottles for hill trekking.</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-cloud-sun"></i>
+                        <h4>Weather</h4>
+                        <p>Check weather conditions before visiting, especially during monsoon season.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title">Sagar Location Map</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Interactive Map</h3>
+                    <p>Explore Sagar's locations and plan your route</p>
+                    <div class="map-features">
+                        <div class="map-feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Tourist Places</span>
+                        </div>
+                        <div class="map-feature">
+                            <i class="fas fa-utensils"></i>
+                            <span>Restaurants</span>
+                        </div>
+                        <div class="map-feature">
+                            <i class="fas fa-bed"></i>
+                            <span>Hotels</span>
+                        </div>
+                        <div class="map-feature">
+                            <i class="fas fa-bus"></i>
+                            <span>Transport</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transportation Section -->
+    <section class="transport-section">
+        <div class="container">
+            <h2 class="section-title">Transportation & Services</h2>
+            
+            <!-- Main Transport -->
+            <div class="transport-grid">
+                <div class="transport-card">
+                    <div class="transport-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3>Bus Stand</h3>
+                    <p><strong>Location:</strong> Near Railway Station</p>
+                    <p><strong>Routes:</strong> Bhopal, Indore, Jabalpur, Delhi</p>
+                    <p><strong>Timings:</strong> 24/7 Service</p>
+                    <div class="transport-info">
+                        <span><i class="fas fa-phone"></i> +91-7582-XXXXXX</span>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-icon">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3>Railway Station</h3>
+                    <p><strong>Station Code:</strong> SAG</p>
+                    <p><strong>Major Routes:</strong> Mumbai, Delhi, Bhopal</p>
+                    <p><strong>Facilities:</strong> Waiting Room, Food Court</p>
+                    <div class="transport-info">
+                        <span><i class="fas fa-phone"></i> +91-7582-XXXXXX</span>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Nearest Airport</h3>
+                    <p><strong>Airport:</strong> Raja Bhoj Airport, Bhopal</p>
+                    <p><strong>Distance:</strong> 180 km from Sagar</p>
+                    <p><strong>Connectivity:</strong> Delhi, Mumbai, Bangalore</p>
+                    <div class="transport-info">
+                        <span><i class="fas fa-clock"></i> 3-4 hours by road</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Local Transport -->
+            <div class="local-transport">
+                <h3>Local Transportation</h3>
+                <div class="local-grid">
+                    <div class="local-card">
+                        <i class="fas fa-taxi"></i>
+                        <h4>Auto Rickshaw</h4>
+                        <p>Most common local transport</p>
+                        <span>₹10-50 per ride</span>
+                    </div>
+                    <div class="local-card">
+                        <i class="fas fa-motorcycle"></i>
+                        <h4>Bike Rental</h4>
+                        <p>Available near bus stand</p>
+                        <span>₹200-400 per day</span>
+                    </div>
+                    <div class="local-card">
+                        <i class="fas fa-car"></i>
+                        <h4>Car Rental</h4>
+                        <p>For comfortable city tours</p>
+                        <span>₹800-1500 per day</span>
+                    </div>
+                    <div class="local-card">
+                        <i class="fas fa-bus"></i>
+                        <h4>City Bus</h4>
+                        <p>Economical city transport</p>
+                        <span>₹5-15 per ride</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Essential Services -->
+            <div class="essential-services">
+                <h3>Essential Services</h3>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="fas fa-hospital"></i>
+                        <h4>Hospitals</h4>
+                        <p>District Hospital, Private Clinics</p>
+                        <span>Emergency: 108</span>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-bed"></i>
+                        <h4>Hotels</h4>
+                        <p>Budget to Luxury options</p>
+                        <span>₹500-3000 per night</span>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-credit-card"></i>
+                        <h4>ATM/Banks</h4>
+                        <p>All major banks available</p>
+                        <span>24/7 ATM service</span>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h4>Shopping</h4>
+                        <p>Markets, Malls, Local shops</p>
+                        <span>9 AM - 9 PM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rating & Feedback Section -->
+    <section id="contact" class="rating-section">
+        <div class="container">
+            <h2 class="section-title">Rate & Review Sagar</h2>
+            <div class="rating-content">
+                <div class="rating-stats">
+                    <h3>Visitor Ratings</h3>
+                    <div class="overall-rating">
+                        <div class="rating-circle">
+                            <span class="rating-number">4.8</span>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p>Based on 1,247 reviews</p>
+                    </div>
+                </div>
+                <div class="feedback-form">
+                    <h3>Share Your Experience</h3>
+                    <form id="feedbackForm">
+                        <div class="rating-input">
+                            <label>Rate your visit:</label>
+                            <div class="star-rating">
+                                <input type="radio" name="rating" value="5" id="star5">
+                                <label for="star5" class="star">★</label>
+                                <input type="radio" name="rating" value="4" id="star4">
+                                <label for="star4" class="star">★</label>
+                                <input type="radio" name="rating" value="3" id="star3">
+                                <label for="star3" class="star">★</label>
+                                <input type="radio" name="rating" value="2" id="star2">
+                                <label for="star2" class="star">★</label>
+                                <input type="radio" name="rating" value="1" id="star1">
+                                <label for="star1" class="star">★</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Which places did you visit?</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="places" value="sagar-lake">
+                                    <span>Sagar Lake</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="places" value="historical-fort">
+                                    <span>Historical Fort</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="places" value="ancient-temple">
+                                    <span>Ancient Temple</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="places" value="martyrs-park">
+                                    <span>Martyrs Park</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="places" value="old-market">
+                                    <span>Old Market</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="places" value="university">
+                                    <span>University</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Your feedback:</label>
+                            <textarea name="feedback" placeholder="Tell us about your experience in Sagar..." rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Would you recommend Sagar to others?</label>
+                            <div class="recommendation">
+                                <label class="radio-label">
+                                    <input type="radio" name="recommend" value="yes">
+                                    <span>Yes, definitely!</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="recommend" value="maybe">
+                                    <span>Maybe</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="recommend" value="no">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Recent Reviews -->
+            <div class="recent-reviews">
+                <h3>Recent Reviews</h3>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">A</div>
+                                <div class="reviewer-details">
+                                    <h4>Ankit Sharma</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">2 days ago</span>
+                        </div>
+                        <p>"Amazing experience! The Sagar Lake is breathtaking and the historical fort offers incredible views. Highly recommended for a weekend getaway."</p>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">P</div>
+                                <div class="reviewer-details">
+                                    <h4>Priya Patel</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">1 week ago</span>
+                        </div>
+                        <p>"Great place to visit with family. The food is delicious and the people are very friendly. Will definitely come back again!"</p>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">R</div>
+                                <div class="reviewer-details">
+                                    <h4>Rajesh Kumar</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="review-date">2 weeks ago</span>
+                        </div>
+                        <p>"Beautiful city with rich history. The hill views are spectacular, especially during sunset. Perfect for nature lovers!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sagar Tourism</h3>
+                    <p>Dedicated to bringing the beauty of Sagar to the world</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#places">Places</a></li>
+                        <li><a href="#culture">Culture</a></li>
+                        <li><a href="#food">Food</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Social Media</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sagar Tourism. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+// Language Data
+const languageData = {
+    en: {
+        // Navigation
+        home: "Home",
+        places: "Places",
+        culture: "Culture",
+        food: "Food",
+        contact: "Contact",
+        
+        // Hero Section
+        welcomeTitle: "Welcome to Sagar",
+        welcomeSubtitle: "Welcome to this beautiful city in Madhya Pradesh. The rich culture, historical sites and natural beauty will mesmerize you.",
+        explorePlaces: "Explore Places",
+        learnCulture: "Learn Culture",
+        
+        // Places Section
+        mainPlaces: "Main Tourist Places in Sagar",
+        sagarLake: "Sagar Lake",
+        sagarLakeDesc: "The main lake of the city which is full of natural beauty. You can enjoy boating and evening walks here.",
+        historicalFort: "Historical Fort",
+        historicalFortDesc: "The famous fort of Sagar which testifies to the history of the city. The entire city can be seen from here.",
+        ancientTemple: "Ancient Temple",
+        ancientTempleDesc: "The oldest temple of the city which provides spiritual peace. The architecture here is worth seeing.",
+        martyrsPark: "Martyrs Park",
+        martyrsParkDesc: "This park full of greenery is an ideal place to spend time with family.",
+        oldMarket: "Old Market",
+        oldMarketDesc: "Famous market for traditional handicrafts, clothes and local products.",
+        university: "Dr. Harisingh Gaur University",
+        universityDesc: "The famous university of Madhya Pradesh which is the center of education. The campus here is worth seeing.",
+        cityCenter: "City Center",
+        oldCity: "Old City",
+        templeRoad: "Temple Road",
+        newCity: "New City",
+        marketSquare: "Market Square",
+        universityArea: "University Area",
+        morning6to8: "6 AM - 8 PM",
+        morning9to6: "9 AM - 6 PM",
+        morning5to10: "5 AM - 10 PM",
+        morning5to9: "5 AM - 9 PM",
+        morning10to8: "10 AM - 8 PM",
+        morning8to5: "8 AM - 5 PM",
+        
+        // Culture Section
+        cultureTitle: "Culture of Sagar",
+        richHeritage: "Rich Cultural Heritage",
+        cultureDesc: "Sagar is famous for its rich cultural heritage. The traditions, festivals and art forms here will mesmerize you.",
+        traditionalMusic: "Traditional Music and Dance",
+        localCrafts: "Local Handicrafts",
+        colorfulFestivals: "Colorful Festivals",
+        literaryTradition: "Literary Tradition",
+        
+        // Food Section
+        deliciousFood: "Delicious Food of Sagar",
+        localCuisine: "Local Cuisine",
+        localCuisineDesc: "Poha, Jalebi, Samosa and other delicious snacks",
+        streetFood: "Street Food",
+        streetFoodDesc: "Chaat, Golgappe, Bhelpuri and other street food",
+        traditionalFood: "Traditional Food",
+        traditionalFoodDesc: "Dal-Bati, Rajasthani Thali and Madhya Pradesh dishes",
+        
+        // Map Section
+        mapTitle: "Map of Sagar",
+        transportTitle: "Transportation & Essential Services",
+        
+        // Rating & Feedback Section
+        contactTitle: "Rate & Review Sagar",
+        visitorRatings: "Visitor Ratings",
+        shareExperience: "Share Your Experience",
+        rateVisit: "Rate your visit:",
+        whichPlaces: "Which places did you visit?",
+        yourFeedback: "Your feedback:",
+        feedbackPlaceholder: "Tell us about your experience in Sagar...",
+        recommendSagar: "Would you recommend Sagar to others?",
+        yesDefinitely: "Yes, definitely!",
+        maybe: "Maybe",
+        no: "No",
+        submitReview: "Submit Review",
+        recentReviews: "Recent Reviews",
+        basedOnReviews: "Based on 1,247 reviews",
+        
+        // AI Chatbot
+        aiAssistant: "AI Travel Assistant",
+        askAnything: "Ask me anything about Sagar...",
+        sendMessage: "Send",
+        
+        // Footer
+        sagarTourism: "Sagar Tourism",
+        footerDesc: "Dedicated to bringing the beauty of Sagar to the world",
+        quickLinks: "Quick Links",
+        socialMedia: "Social Media",
+        allRightsReserved: "All rights reserved."
+    },
+    hi: {
+        // Navigation
+        home: "होम",
+        places: "स्थान",
+        culture: "संस्कृति",
+        food: "भोजन",
+        contact: "संपर्क",
+        
+        // Hero Section
+        welcomeTitle: "सागर में आपका स्वागत है",
+        welcomeSubtitle: "मध्य प्रदेश के इस खूबसूरत शहर में आपका स्वागत है। यहाँ की समृद्ध संस्कृति, ऐतिहासिक स्थल और प्राकृतिक सौंदर्य आपको मंत्रमुग्ध कर देंगे।",
+        explorePlaces: "स्थान देखें",
+        learnCulture: "संस्कृति जानें",
+        
+        // Places Section
+        mainPlaces: "सागर के मुख्य पर्यटन स्थल",
+        sagarLake: "सागर झील",
+        sagarLakeDesc: "शहर की मुख्य झील जो प्राकृतिक सौंदर्य से भरपूर है। यहाँ बोटिंग और शाम की सैर का आनंद ले सकते हैं।",
+        historicalFort: "ऐतिहासिक किला",
+        historicalFortDesc: "सागर का प्रसिद्ध किला जो शहर के इतिहास की गवाही देता है। यहाँ से पूरे शहर का नज़ारा देखा जा सकता है।",
+        ancientTemple: "प्राचीन मंदिर",
+        ancientTempleDesc: "शहर का सबसे पुराना मंदिर जो आध्यात्मिक शांति प्रदान करता है। यहाँ की वास्तुकला देखने लायक है।",
+        martyrsPark: "शहीद पार्क",
+        martyrsParkDesc: "हरियाली से भरपूर यह पार्क परिवार के साथ समय बिताने के लिए आदर्श स्थान है।",
+        oldMarket: "पुराना बाज़ार",
+        oldMarketDesc: "पारंपरिक हस्तशिल्प, कपड़े और स्थानीय उत्पादों के लिए प्रसिद्ध बाज़ार।",
+        university: "डॉ. हरिसिंह गौर विश्वविद्यालय",
+        universityDesc: "मध्य प्रदेश का प्रसिद्ध विश्वविद्यालय जो शिक्षा का केंद्र है। यहाँ का कैंपस देखने लायक है।",
+        cityCenter: "शहर के केंद्र में",
+        oldCity: "पुराना शहर",
+        templeRoad: "मंदिर मार्ग",
+        newCity: "नया शहर",
+        marketSquare: "बाज़ार चौक",
+        universityArea: "विश्वविद्यालय क्षेत्र",
+        morning6to8: "सुबह 6 बजे - शाम 8 बजे",
+        morning9to6: "सुबह 9 बजे - शाम 6 बजे",
+        morning5to10: "सुबह 5 बजे - रात 10 बजे",
+        morning5to9: "सुबह 5 बजे - रात 9 बजे",
+        morning10to8: "सुबह 10 बजे - रात 8 बजे",
+        morning8to5: "सुबह 8 बजे - शाम 5 बजे",
+        
+        // Culture Section
+        cultureTitle: "सागर की संस्कृति",
+        richHeritage: "समृद्ध सांस्कृतिक विरासत",
+        cultureDesc: "सागर अपनी समृद्ध सांस्कृतिक विरासत के लिए प्रसिद्ध है। यहाँ की परंपराएँ, त्योहार और कला रूप आपको मंत्रमुग्ध कर देंगे।",
+        traditionalMusic: "पारंपरिक संगीत और नृत्य",
+        localCrafts: "स्थानीय हस्तशिल्प",
+        colorfulFestivals: "रंगीन त्योहार",
+        literaryTradition: "साहित्यिक परंपरा",
+        
+        // Food Section
+        deliciousFood: "सागर का स्वादिष्ट भोजन",
+        localCuisine: "स्थानीय व्यंजन",
+        localCuisineDesc: "पोहा, जलेबी, समोसा और अन्य स्वादिष्ट नाश्ते",
+        streetFood: "स्ट्रीट फूड",
+        streetFoodDesc: "चाट, गोलगप्पे, भेलपुरी और अन्य स्ट्रीट फूड",
+        traditionalFood: "पारंपरिक भोजन",
+        traditionalFoodDesc: "दाल-बाटी, राजस्थानी थाली और मध्य प्रदेशी व्यंजन",
+        
+        // Map Section
+        mapTitle: "सागर का नक्शा",
+        transportTitle: "परिवहन और आवश्यक सेवाएँ",
+        
+        // Rating & Feedback Section
+        contactTitle: "सागर को रेट करें और रिव्यू दें",
+        visitorRatings: "विज़िटर रेटिंग्स",
+        shareExperience: "अपना अनुभव साझा करें",
+        rateVisit: "अपनी यात्रा को रेट करें:",
+        whichPlaces: "आपने कौन से स्थान देखे?",
+        yourFeedback: "आपकी प्रतिक्रिया:",
+        feedbackPlaceholder: "सागर में अपने अनुभव के बारे में बताएं...",
+        recommendSagar: "क्या आप सागर की सिफारिश दूसरों को करेंगे?",
+        yesDefinitely: "हाँ, निश्चित रूप से!",
+        maybe: "शायद",
+        no: "नहीं",
+        submitReview: "रिव्यू सबमिट करें",
+        recentReviews: "हाल के रिव्यू",
+        basedOnReviews: "1,247 रिव्यूज़ के आधार पर",
+        
+        // AI Chatbot
+        aiAssistant: "AI यात्रा सहायक",
+        askAnything: "सागर के बारे में कुछ भी पूछें...",
+        sendMessage: "भेजें",
+        
+        // Footer
+        sagarTourism: "सागर पर्यटन",
+        footerDesc: "सागर की खूबसूरती को दुनिया के सामने लाने के लिए समर्पित",
+        quickLinks: "त्वरित लिंक",
+        socialMedia: "सोशल मीडिया",
+        allRightsReserved: "सभी अधिकार सुरक्षित."
+    },
+    bk: { // Bundelkhandi (regional dialect)
+        Navigation
+        home: "घर",
+       places: "जगह",
+        culture: "रिवाज",
+       food: "खाय",
+        contact: "संपर्क",
+        
+        HeroSection
+        welcomeTitle: "सागर मा राम-राम",
+        welcomeSubtitle: "सागर के सुन्दर सहर मा आपन स्वागत बा। इहाँ के रिवाज, इतिहात अउर नैसर्गिक सुन्दरता मन मोह लेथै।",
+       explorePlaces: "जगह देखो",
+        learnCulture: "रिवाज जानो",
+        
+        // Places Section
+        mainPlaces: "सागर के खास जगह",
+        sagarLake: "सागर झील",
+        sagarLakeDesc: "शहर के मुख्य झील, इहाँ बोटिंग अउर शाम के सैर मजेदार होवथै।",
+        historicalFort: "पुरानो किला",
+        historicalFortDesc: "इ किला सागर के इतिहास बतावत है। ऊपर से पूरा सहर दिखत है।",
+        ancientTemple: "प्राचीन मंदिरे",
+        ancientTempleDesc: "शांति लिखे ई मंदिर, दर्शन करबे मन ठहर जाथै।",
+        martyrsPark: "शहीद पार्क",
+        martyrsParkDesc: "परिवार संग घुुमे खातिर नीक जगह",
+        oldMarket: "पुराना बाजार",
+        oldMarketDesc: "स्थानीय सामान अउर हस्तशिल्प खातिर मशहूर",
+        university: "डॉ. हरिसिंह गौर यूनिवर्सिटी",
+        universityDesc: "पढ़ाई खातिर मशहूर संस्थान, कैंपस सुन्दर बा।",
+        cityCenter: "सहर के बीच",
+        oldCity: "पुराना सहर",
+        templeRoad: "मंदिर रोड",
+        newCity: "नया सहर",
+        marketSquare: "बाज़ार चौक",
+        universityArea: "यूनिवर्सिटी इलाका",
+        morning6to8: "6 बजे - 8 बजे",
+        morning9to6: "9 बजे - 6 बजे",
+        morning5to10: "5 बजे - 10 बजे",
+        morning5to9: "5 बजे - 9 बजे",
+        morning10to8: "10 बजे - 8 बजे",
+        morning8to5: "8 बजे - 5 बजे",
+        
+        // Culture Section
+        cultureTitle: "सागर के रिवाज",
+        richHeritage: "घना समृद्ध परंपरा",
+        cultureDesc: "सागर मा रंग-बिरंगा त्योहार, संगीत अउर हस्तशिल्प मिलथै।",
+        traditionalMusic: "पारंपरिक गीत-नृत्य",
+        localCrafts: "स्थानीय कला",
+        colorfulFestivals: "रंगीन त्योहार",
+        literaryTradition: "लिखे-पढ़े परंपरा",
+        
+        // Food Section
+        deliciousFood: "सागर के स्वादिष्ट भोजन",
+        localCuisine: "स्थानीय व्यंजन",
+        localCuisineDesc: "पोहा-जलेबी, दाल-बाटी जैसने मजेदार परांपरिक खाना",
+        streetFood: "सड़का खाय",
+        streetFoodDesc: "चाट, गोलगप्पा, भेलपुरी या झटपट नास्ता",
+        traditionalFood: "परंपरिक खाना",
+        traditionalFoodDesc: "दाल-बाटी, राजस्थानी स्वाद",
+        
+        // Map Section
+        mapTitle: "सागर के नक्शो",
+        transportTitle: "परिवहन अउर ज़रूरी सेवाएँ",
+        
+        // Rating & Feedback Section
+        contactTitle: "सागर के रेट करो",
+        visitorRatings: "आगंतुक के रेटिंग",
+        shareExperience: "अपन अनुभव बतावो",
+        rateVisit: "अपनी यात्रा के रेट देओ:",
+        whichPlaces: "कौन जगह देखो?",
+        yourFeedback: "आपकी टिपण्णी:",
+        feedbackPlaceholder: "सागर मा आपन अनुभव बतावो...",
+        recommendSagar: "का आप सागर की सलाह दूसरन को दोगे?",
+        yesDefinitely: "हाँ, जरूर!",
+        maybe: "शायद",
+        no: "नाहीं",
+        submitReview: "रिव्यू भेजो",
+        recentReviews: "ताजा रिव्यू",
+        basedOnReviews: "1,247 रिव्यू के आधार पे",
+        
+        // AI Chatbot
+        aiAssistant: "AI यात्रा साथी",
+        askAnything: "सागर के बारे मा कुछ पूछौ...",
+        sendMessage: "भेजो",
+        
+        // Footer
+        sagarTourism: "सागर पर्यटन",
+        footerDesc: "सागर के सुन्दरता दुनिया तक पहुँचावे खातिर समर्पित",
+        quickLinks: "त्वरित लिंक",
+        socialMedia: "सोशल मीडिया",
+        allRightsReserved: "सब अधिकार सुरक्षित."
+    }
+};
+
+// Current language (default: English)
+let currentLanguage = 'en';
+
+// Language switching functionality
+function initLanguageToggle() {
+    const langButtons = document.querySelectorAll('.lang-btn');
+    
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            langButtons.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            // Get selected language
+            const selectedLang = btn.getAttribute('data-lang');
+            currentLanguage = selectedLang;
+            
+            // Update all content
+            updateContent();
+        });
+    });
+}
+
+// Update all content based on current language
+function updateContent() {
+    const data = languageData[currentLanguage];
+    
+    // Update navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navTexts = [data.home, data.places, data.culture, data.food, data.contact];
+    navLinks.forEach((link, index) => {
+        if (navTexts[index]) {
+            link.textContent = navTexts[index];
+        }
+    });
+    
+    // Update hero section
+    const heroTitle = document.querySelector('.hero h1');
+    const heroSubtitle = document.querySelector('.hero p');
+    const exploreBtn = document.querySelector('.btn-primary');
+    const learnBtn = document.querySelector('.btn-secondary');
+    
+    if (heroTitle) heroTitle.textContent = data.welcomeTitle;
+    if (heroSubtitle) heroSubtitle.textContent = data.welcomeSubtitle;
+    if (exploreBtn) exploreBtn.textContent = data.explorePlaces;
+    if (learnBtn) learnBtn.textContent = data.learnCulture;
+    
+    // Update section titles
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const titles = [data.mainPlaces, data.cultureTitle, data.deliciousFood, data.mapTitle, data.transportTitle, data.contactTitle];
+    sectionTitles.forEach((title, index) => {
+        if (titles[index]) {
+            title.textContent = titles[index];
+        }
+    });
+    
+    // Update AI Chatbot
+    const aiAssistant = document.querySelector('.chatbot-info h4');
+    const askInput = document.querySelector('#chatInput');
+    const sendBtn = document.querySelector('#chatSendBtn');
+    
+    if (aiAssistant) aiAssistant.textContent = data.aiAssistant;
+    if (askInput) askInput.placeholder = data.askAnything;
+    if (sendBtn) sendBtn.innerHTML = `<i class="fas fa-paper-plane"></i>`;
+}
+
+// Carousel functionality
+let currentSlideIndex = 0;
+const totalSlides = 5;
+let autoSlideInterval;
+
+function initCarousel() {
+    autoSlideInterval = setInterval(() => {
+        changeSlide(1);
+    }, 3000);
+    
+    const carousel = document.querySelector('.carousel-container');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(() => {
+                changeSlide(1);
+            }, 3000);
+        });
+    }
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            changeSlide(-1);
+        } else if (e.key === 'ArrowRight') {
+            changeSlide(1);
+        }
+    });
+}
+
+function changeSlide(direction) {
+    currentSlideIndex += direction;
+    
+    if (currentSlideIndex >= totalSlides) {
+        currentSlideIndex = 0;
+    } else if (currentSlideIndex < 0) {
+        currentSlideIndex = totalSlides - 1;
+    }
+    
+    updateCarousel();
+}
+
+function currentSlide(slideNumber) {
+    currentSlideIndex = slideNumber - 1;
+    updateCarousel();
+}
+
+function updateCarousel() {
+    const track = document.querySelector('.carousel-track');
+    const dots = document.querySelectorAll('.dot');
+    
+    if (track) {
+        const translateX = -currentSlideIndex * 20;
+        track.style.transform = `translateX(${translateX}%)`;
+    }
+    
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlideIndex);
+    });
+}
+
+// Mobile menu toggle
+function initMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+}
+
+// Navbar scroll effect
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+}
+
+// Loading animation
+function initLoadingAnimation() {
+    const loading = document.createElement('div');
+    loading.className = 'loading';
+    loading.innerHTML = '<div class="loader"></div>';
+    document.body.appendChild(loading);
+    
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loading.classList.add('hidden');
+            setTimeout(() => {
+                loading.remove();
+            }, 500);
+        }, 1000);
+    });
+}
+
+// Theme toggle
+function initThemeToggle() {
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('site-theme');
+    if (saved === 'light') root.classList.add('light');
+
+    if (btn) {
+        btn.addEventListener('click', () => {
+            root.classList.toggle('light');
+            const isLight = root.classList.contains('light');
+            localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+            btn.textContent = isLight ? '☀️' : '🌙';
+        });
+        btn.textContent = root.classList.contains('light') ? '☀️' : '🌙';
+    }
+}
+
+// Smooth scrolling
+const navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Feedback form handling
+function initFeedbackForm() {
+    const feedbackForm = document.getElementById('feedbackForm');
+    
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(feedbackForm);
+            const rating = formData.get('rating');
+            const feedback = formData.get('feedback');
+            
+            if (!rating) {
+                alert('Please select a rating!');
+                return;
+            }
+            
+            if (!feedback.trim()) {
+                alert('Please write your feedback!');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your feedback! Your review has been submitted.');
+                feedbackForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Create confetti effect
+                createConfetti();
+            }, 1500);
+        });
+    }
+}
+
+// Confetti effect
+function createConfetti() {
+    const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'];
+    const confettiCount = 50;
+    
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-10px';
+        confetti.style.zIndex = '9999';
+        confetti.style.borderRadius = '50%';
+        confetti.style.pointerEvents = 'none';
+        
+        document.body.appendChild(confetti);
+        
+        const animation = confetti.animate([
+            { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+            { transform: `translateY(${window.innerHeight + 100}px) rotate(720deg)`, opacity: 0 }
+        ], {
+            duration: 3000,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        });
+        
+        animation.onfinish = () => {
+            confetti.remove();
+        };
+    }
+}
+
+// Initialize all functions
+document.addEventListener('DOMContentLoaded', () => {
+    initCarousel();
+    initMobileMenu();
+    initNavbarScroll();
+    initLoadingAnimation();
+    initThemeToggle();
+    initFeedbackForm();
+    initLanguageToggle();
+});
+    </script>
+</body>
+</html>
+
